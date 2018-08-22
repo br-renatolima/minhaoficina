@@ -1,0 +1,79 @@
+/* 
+    Created on : 24/07/2018, 22:59:25
+    Author     : rlima
+*/
+.nome-cliente{
+    opacity: 0;
+    margin-left: -5px;
+    padding: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.jumbotron {
+    background-image: url('../img/cinza.png');
+}
+
+.topo{
+    margin-top: -60px;
+    margin-bottom: 60px;
+}
+
+.container{
+    margin-top: 100px;
+}
+
+.nav{
+    /*background: linear-gradient(to left, #eeeeee , #f3f3f3);*/
+    padding: 10px;
+}
+
+.nav-item {
+    font-weight: normal;
+}
+
+.nav-item a{
+    font-size: 12px;
+    color: #000;
+    margin-left: 15px;
+}
+
+.nav-item a:hover{
+    color: #666666;
+    text-decoration: none;
+}
+
+.card input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px #666666 solid;
+    border-radius: 0px;
+}
+.card .btn{
+    margin-left: 10px;
+    border: 1px solid;
+}
+
+.form-inline > input {
+    margin-left: 10px;
+}
+
+.glass{
+    width: 100%;
+    background-color: #ccc !important;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,.1), rgba(255,255,255,.1) 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,.4)) !important;
+    background-image: -webkit-linear-gradient(to bottom, rgba(255,255,255,.1), rgba(255,255,255,.1) 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,.4)) !important;
+    background-image: -moz-linear-gradient(to bottom, rgba(255,255,255,.1), rgba(255,255,255,.1) 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,.4)) !important;
+    background-image: -ms-linear-gradient(to bottom, rgba(255,255,255,.1), rgba(255,255,255,.1) 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,.4)) !important;
+    background-image: -o-linear-gradient(to bottom, rgba(255,255,255,.1), rgba(255,255,255,.1) 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,.4)) !important;
+}
+
+.ui-datepicker{
+    /*margin-top: 40px;*/
+    margin-left: 190px;
+}
+
+.btn, .ui-button {
+    border-radius: 0px;
+    border: solid 1px;
+}

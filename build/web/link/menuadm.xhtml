@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:body>
+        <c:choose>
+            <c:when test="#{usu.id == 1}">
+                <ul class="nav glass justify-content-end">
+                    <li class="nav-item">
+                        <h:outputLink value="#{linksMB.registrarTipo}"> Novo Tipo de Equipamento <i class="fa fa-toolbox"></i> </h:outputLink>
+                    </li>    
+                    <li class="nav-item">
+                        <h:outputLink value="#{linksMB.registrarStatus}"> Status de OS <i class="fa fa-newspaper-o"></i> </h:outputLink>
+                    </li>    
+                    <li class="nav-item">
+                        <h:outputLink value="#{linksMB.registrarMarca}"> Nova Marca <i class="fa fa-check-circle-o"></i> </h:outputLink>
+                    </li>    
+                    <li class="nav-item">
+                        <h:outputLink value="#{linksMB.registrarComplexidade}"> Complexidade <i class="fa fa-braille"></i> </h:outputLink>
+                    </li>    
+                    <li class="nav-item">
+                        <h:outputLink value="#{linksMB.registrarOficina}"> Nova Oficina <i class="fa fa-houzz"></i> </h:outputLink>
+                    </li>
+                    <li class="nav-item">
+                        <h:outputLink value="#{linksMB.registrarUsuario}"> Novo Atendente <i class="fa fa-address-card-o"></i> </h:outputLink>
+                    </li>
+
+                </ul>
+            </c:when>
+        </c:choose>
+
+    </h:body>
+</html>
+

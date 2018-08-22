@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>MINHA OFICINA - Registrar Complexidade</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+
+        <ui:include src="../link/menusuperior.xhtml"/>
+
+        <div class="container container-fluid">
+            
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Nova Configuração de Complexidade
+                </div>                
+                <div class="card-body">
+                    <h:form class="form-group form-inline">
+                        <h:outputText value="Descrição"/>
+                        <h:inputText class="form-control" id="descricao" value="#{compMB.comp.descricao}" required="true" requiredMessage="Campo Obrigatório!" />
+                        <h:outputText value="Multiplicidade"/>
+                        <h:inputText class="form-control" id="multiplicador" value="#{compMB.comp.multiplicador}" required="true" requiredMessage="Campo Obrigatório!" />
+                        <h:commandButton class="btn btn-outline-success" value="Salvar" action="#{compMB.salvar()}"/>
+                        <small>O multiplicador incide diretamente sobre o valor do serviço escolhido ao criar uma nova OS!</small>
+                    </h:form>
+                </div>
+            </div>
+
+            <c:choose>
+                <c:when test="#{compMB.mensagem != ''}">
+                    <div class="alert alert-secondary alert-dismissible fade show">
+                        <h:outputText value="#{compMB.mensagem}"/>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:when>
+            </c:choose>
+
+
+
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Configurações de Complexidade registradas
+                </div>                
+                <div class="card-body">
+                    <h:dataTable class="table table-hover table-striped table-bordered table-sm" value="#{compMB.lista}" var="lista">
+                        <h:column>
+                            <h:outputText value="#{lista.id}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{lista.descricao}"/>
+                        </h:column>                
+                        <h:column>
+                            <h:outputText value="#{lista.multiplicador}"/>
+                        </h:column>                
+                    </h:dataTable>
+                </div>
+            </div>
+
+        </div>
+
+        <ui:include src="../link/menuadm.xhtml" />
+
+    </h:body>
+</html>
+

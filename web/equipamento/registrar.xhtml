@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Incluir Equipamento</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+        
+        <ui:include src="/link/menusuperior.xhtml" />
+        
+        <div class="container container-fluid">
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Registrar Novo Equipamento <i class="fa fa-toolbox"></i>
+                </div>
+                
+                <div class="card-body">
+                    <h:form class="form-group">
+                        
+                            <div class="form-group form-inline">
+                                <h:outputLabel for="cpf" value="Insira o CPF do Cliente : "/>
+                                <h:inputText class="form-control input-cpf" value="#{equipamentoMB.cpf}" id="cpf">
+                                    <p:ajax event="keyup" update="dadoscliente" listener="#{equipamentoMB.getClienteByCpf()}"/>
+                                </h:inputText>
+                                <h:outputLabel for="dadoscliente" value="Nome : "/>
+                                <h:inputText value="#{equipamentoMB.nome}" id="dadoscliente" disabled="true"/>
+                            </div>
+                                
+                            <div class="form-group form-inline">
+                                <h:outputLabel for="nome" value="Descrição do Equipamento : "/>
+                                <h:inputText class="form-control" value="#{equipamentoMB.equipamento.nome}" id="nome"/>
+                            </div>
+
+                            <div class="form-group form-inline">
+                                <h:outputLabel value="Tipo do Equipamento : " for="idTipo"/>
+                                <h:selectOneMenu class="form-control" id="idTipo" value="#{equipamentoMB.idTipo}" >
+                                    <f:selectItem itemLabel="Selecione um Tipo" itemValue="0" />
+                                    <f:selectItems value="#{equipamentoMB.listaMapTipo}"/>
+                                </h:selectOneMenu>
+                                <h:outputLink class="btn btn-outline-secondary" value="#{linksMB.registrarTipo}">+</h:outputLink>
+                            </div>
+
+                            <div class="form-group form-inline">
+                                <h:outputLabel value="Marca do Equipamento : " for="idMarca"/>
+                                <h:selectOneMenu class="form-control" id="idMarca" value="#{equipamentoMB.idMarca}" >
+                                    <f:selectItem itemLabel="Selecione uma Marca" itemValue="0" />
+                                    <f:selectItems value="#{equipamentoMB.listaMapMarca}"/>
+                                </h:selectOneMenu>
+                                <h:outputLink class="btn btn-outline-secondary" value="#{linksMB.registrarMarca}">+</h:outputLink>
+                            </div>
+
+                       
+
+                        <h:commandButton class="btn btn-outline-success" value="Salvar" action="#{equipamentoMB.salvar()}"/>
+
+                        <br/>
+                        <c:choose>
+                            <c:when test="#{equipamentoMB.mensagem != ''}">
+                                <div class="alert alert-secondary alert-dismissible fade show">
+                                    <h:outputText value="#{equipamentoMB.mensagem}"/>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </c:when>
+                        </c:choose>
+                            
+                
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        
+        <ui:include src="../link/menuadm.xhtml"/>
+        
+    </h:body>
+</html>
+

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:include src="../link/includes.xhtml"/>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light topo glass">
+        <!--a class="navbar-brand" href="#">MINHA OFICINA</a-->
+        <h:outputLink class="navbar-brand" value="#{linksMB.home}"> Início <i class="fa fa-home"></i> </h:outputLink>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+            <ul class="nav navbar-nav justify-content-start">
+                <!--li class="nav-item">
+                    <h:outputLink value="#{linksMB.home}"> Início <i class="fa fa-home"></i> </h:outputLink>
+                </li-->
+                <li class="nav-item">
+                    <h:outputLink value="#{linksMB.registrarCliente}"> Novo Cliente <i class="fa fa-user-circle"></i> </h:outputLink>
+                </li>
+                <li class="nav-item">
+                    <h:outputLink value="#{linksMB.registrarServico}"> Novo Tipo de Serviço <i class="fa fa-pencil-alt"></i> </h:outputLink>
+                </li>
+                <li class="nav-item">
+                    <h:outputLink value="#{linksMB.acompanharOrdemServico}"> Acompanhar Ordens de Serviços <i class="fa fa-clock"></i> </h:outputLink>
+                </li>
+                <li class="nav-item">
+                    <h:outputLink value="#{linksMB.registrarEquipamento}"> Novo Equipamento <i class="fa fa-toolbox"></i> </h:outputLink>
+                </li>
+                <li class="nav-item">
+                    <h:outputLink value="#{linksMB.solicitarOrdemServico}"> Nova Ordem de Serviço <i class="fa fa-book-open"></i> </h:outputLink>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+
+
+
+
+</html>
+

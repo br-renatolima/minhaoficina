@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Painel do Cliente</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+
+        <ui:include src="../link/menusuperior.xhtml" />
+
+        <div class="card  bg-light mb-3">
+
+            <div class="card-header">
+                Busca por CPF : 
+            </div>
+            <div class="card-body">
+
+                <h:form class="form-inline form-group">
+                    <h5 class="card-title">Insira o CPF do Cliente</h5>
+                    <h:inputText class="form-control input-cpf" id="cpf" value="#{clienteMB.CPF}" />
+                    <h:commandButton value="Pesquisar" class="btn btn-outline-secondary" action="#{clienteMB.obterCliente()}"/>
+                </h:form>
+
+                <h:form>
+                    <div class="form-group">
+                        <h:outputLabel value="Nome : " />
+                        <h:inputText class="form-control" value="#{clienteMB.cliente.nome}"/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <h:outputLabel value="CPF : " />
+                        <h:inputText class="form-control" value="#{clienteMB.cliente.cpf}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel value="E-mail : " />
+                        <h:inputText class="form-control" value="#{clienteMB.cliente.email}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel value="Data de Cadastro : " />
+                        <h:outputText class="form-control" value="#{clienteMB.dataPtBr}" />
+                    </div>
+
+                    <div class="form-group">
+                        <h:commandButton action="#{clienteMB.editar()}" value="Salvar" class="btn btn-outline-success">
+                            <f:param name="id" value="#{clienteMB.cliente.id}" />
+                        </h:commandButton>
+                    </div>
+                </h:form>
+
+            </div>
+        </div>
+
+
+        <c:choose>
+            <c:when test="#{clienteMB.mensagemErro != ''}">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <h:outputText value="#{clienteMB.mensagemErro}"/>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:when>
+        </c:choose>
+        <c:choose>
+            <c:when test="#{clienteMB.mensagemSucesso != ''}">
+                <div class="alert alert-success alert-dismissible fade show">
+                    <h:outputText value="#{clienteMB.mensagemSucesso}"/>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:when>
+        </c:choose>
+
+        <ui:include src="../link/menuadm.xhtml"/>
+
+
+    </h:body>
+</html>
+

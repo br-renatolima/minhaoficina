@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>MINHA OFICINA - Novo Atendente</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+        <ui:include src="../link/menusuperior.xhtml" />
+
+        <div class="container container-fluid">
+            <div class="card bg-light mb-3">
+
+                <div class="card-header">
+                    Novo Usuário
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Cadastrar Novo Atendente</h5>
+
+                    <c:choose>
+                    <c:when test="#{usuarioMB.mensagem != null}">
+                        <div class="alert alert-secondary alert-dismissible fade show">
+                            <h:outputText value="#{usuarioMB.mensagem}"/>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </c:when>
+                </c:choose>
+                    
+                    
+                    <h:form>
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="#{usuarioMB.usuario.nome}" value="Nome: "/>
+                                <h:inputText class="form-control" value="#{usuarioMB.usuario.nome}" maxlength="50" id="nome" required="true" requiredMessage="Campo Obrigatório!" />
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="#{usuarioMB.usuario.cpf}" value="CPF: "/>
+                                <h:inputText class="form-control input-cpf" value="#{usuarioMB.usuario.cpf}" maxlength="16" id="cpf" required="true" requiredMessage="Campo Obrigatório!" />
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="#{usuarioMB.usuario.email}" value="E-mail: "/>
+                                <h:inputText class="form-control" value="#{usuarioMB.usuario.email}" maxlength="50" id="email" required="true" requiredMessage="Campo Obrigatório!" />
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="#{usuarioMB.usuario.login}" value="Nome de Usuário (login): " />
+                                <h:inputText class="form-control" value="#{usuarioMB.usuario.login}" maxlength="50" id="login" required="true" requiredMessage="Campo Obrigatório!" />
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="#{usuarioMB.usuario.senha}" value="Senha:" />
+                                <h:inputSecret class="form-control" value="#{usuarioMB.usuario.senha}" id="senha" required="true" requiredMessage="Campo Obrigatório!" />
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel value="Selecione uma Oficina :" />
+                                <h:selectOneMenu class="form-control" value="#{usuarioMB.idOficina}" id="idOficina">
+                                    <f:selectItems value="#{usuarioMB.listaMapOficina}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:commandButton class="btn btn-outline-success" value="Registrar" action="#{usuarioMB.salvar()}" />
+                            </div>
+                        </div>                
+                    </h:form>
+
+                </div>
+
+                
+
+            </div>
+        </div>
+        
+        <ui:include src="../link/menuadm.xhtml" />
+
+    </h:body>
+</html>
+

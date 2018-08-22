@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>MINHA OFICINA - Solicitar Ordem de Serviço</title>
+    </h:head>
+    <!--ui:include src="../link/includes.xhtml"/-->
+    <h:body class="jumbotron jumbotron-fluid">
+
+        <ui:include src="../link/menusuperior.xhtml" />
+
+        <div class="card bg-light mb-3" style="margin-top: -60px;">
+            <div class="card-header">
+                Busca Por CPF
+            </div>
+            <div class="card-body">
+                <h:form class="form-inline form-group">
+                    <h5 class="card-title">Insira o CPF do Cliente</h5>
+                    <h:inputText id="cpf" class="input-cpf form-control" value="#{ordemServicoMB.CPF}" />
+                    <h:commandButton value="Pesquisar" class="btn btn-outline-dark" action="#{ordemServicoMB.obterCliente()}">
+                        <f:param name="idoficina" value="#{usu.oficina.id}"/>
+                        <f:param name="idatendente" value="#{usu.id}"/>
+                    </h:commandButton>
+                </h:form>
+
+                <h:panelGrid columns="2" cellpadding="10">
+                    Nome : <h:outputText id="nome" value="#{ordemServicoMB.cliente.nome}"/>
+                    CPF : <h:outputText id="cpf" value="#{ordemServicoMB.cliente.cpf}"/>
+                    E-mail : <h:outputText id="email" value="#{ordemServicoMB.cliente.email}"/>
+                    Data de Cadastro : <h:outputText id="datacadastro" value="#{ordemServicoMB.dataPtBr}" />
+                </h:panelGrid>
+            </div>
+        </div>
+
+        <c:choose>
+            <c:when test="#{ordemServicoMB.mensagem != ''}">
+                <div class="alert alert-dark alert-dismissible fade show">
+                    <h:outputText value="#{ordemServicoMB.mensagem}"/>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:when>
+        </c:choose>
+
+
+        <div class="row">
+
+            <div class="col-sm-6">
+
+                <div class="card bg-light mb-3">
+                    <div class="card-header">
+                        Ordens de Serviço
+                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#novaOs">
+                            +
+                        </button>
+                    </div>
+                    <div class="card-body">
+
+                        <h:dataTable class="table table-borderless table-hover table-light table-striped table-sm table-responsive" value="#{ordemServicoMB.listaOs}" var="os">
+                            <h:column>
+                                <f:facet name="header"> 
+                                    <h:outputText value="N° da Ordem de Serviço" /> 
+                                </f:facet> 
+                                <h:outputText id="numeroos" value="#{os.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"> 
+                                    <h:outputText value="Data de Solicitação" /> 
+                                </f:facet> 
+                                <h:outputText id="dataservico" value="#{os.dataSolicitacao}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"> 
+                                    <h:outputText value="Data de Entrega" /> 
+                                </f:facet>
+                                <h:outputText id="dataentrega" value="#{os.dataFim}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"> 
+                                    <h:outputText value="Valor" /> 
+                                </f:facet>
+                                <h:outputText id="valor" value="#{os.valor}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    <div class="card-footer">Minha Oficina</div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <div class="card bg-light mb-3" >
+                    <div class="card-header">
+                        Equipamento do Cliente
+                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#novoEquipamento">
+                            +
+                        </button>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <h:dataTable class="table table-borderless table-striped table-light table-hover table-sm" value="#{ordemServicoMB.listaEquipamento}" var="eqs">
+                                <h:column>
+                                    <f:facet name="header">Id</f:facet>
+                                        #{eqs.id}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Nome</f:facet>
+                                        #{eqs.nome}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Tipo</f:facet>
+                                        #{eqs.idTipo.nome}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Marca</f:facet>
+                                        #{eqs.idMarca.nome}
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                        <div class="modal fade" id="novoEquipamento" tabindex="-1" role="dialog" aria-labelledby="novoEquipamento" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Novo Equipamento</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:form>
+                                            <div class="form-group">
+                                                <h:outputLabel for="cpf" value="Cpf : "/>
+                                                <h:inputText class="form-control input-cpf" value="#{equipamentoMB.cpf}" required="true" id="cpf" requiredMessage="Campo obrigatório!"/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <h:outputLabel for="nome" value="Nome : "/>
+                                                <h:inputText class="form-control" value="#{equipamentoMB.equipamento.nome}" required="true" id="nome" requiredMessage="Campo obrigatório!"/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <h:outputLabel for="idTipo" value="Tipo : " />
+                                                <h:selectOneMenu class="form-control" id="idTipo" value="#{equipamentoMB.idTipo}" >
+                                                    <f:selectItem itemLabel="Selecione um Tipo" itemValue="0" />
+                                                    <f:selectItems value="#{equipamentoMB.listaMapTipo}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <h:outputLabel for="idMarca" value="Marca : " />
+                                                <h:selectOneMenu class="form-control" id="idMarca" value="#{equipamentoMB.idMarca}" >
+                                                    <f:selectItem itemLabel="Selecione uma Marca" itemValue="0" />
+                                                    <f:selectItems value="#{equipamentoMB.listaMapMarca}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="form-group">
+                                                <h:commandButton class="btn btn-outline-success" value="Salvar" action="#{equipamentoMB.salvar()}" />
+                                            </div>
+
+                                        </h:form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="novaOs" tabindex="-1" role="dialog" aria-labelledby="novaOs" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nova Ordem de Serviço</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h:form class="form-group">
+
+                            <h:inputHidden id="cpf" value="#{ordemServicoMB.CPF}" />
+                            <div class="form-group">
+                                <h:outputLabel value="Selecione o Equipamento do Cliente : "/>                    
+                                <h:selectOneMenu class="form-control" id="idEquipamento" value="#{ordemServicoMB.idEquipamento}">
+                                    <p:ajax update="idServico" event="change" listener="#{ordemServicoMB.listarServicosDisponiveis()}" />
+                                    <f:selectItem itemLabel="Selecione um Equipamento" itemValue="0" />
+                                    <f:selectItems value="#{ordemServicoMB.listaIdEquipamento}"/>
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel value="Serviço Desejado : "/>
+                                <h:selectOneMenu class="form-control" id="idServico" value="#{ordemServicoMB.idServico}">
+                                    <f:selectItem itemLabel="Selecione um Serviço" itemValue="0" />
+                                    <f:selectItems value="#{ordemServicoMB.listaMapServico}"/>
+                                    <p:ajax event="change" update="valorservico" listener="#{ordemServicoMB.obterServico()}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="form-group form-inline">
+                                <h:outputLabel value="Valor : "/>
+                                <h:inputText disabled="true" class="form-control valorservico input-valor" value="#{ordemServicoMB.servico.valorComplexidade}" id="valorservico" />
+                                
+                                <h:outputLabel value="Valor Pago : "/>
+                                <h:inputText class="form-control valorPagto input-valor" value="#{ordemServicoMB.valorPago}" id="valorPagto" />
+                            </div>
+                                
+                            <div class="form-group form-inline">
+                                <h:outputLabel value="Troco : "/>
+                                <h:inputText disabled="true" class="form-control troco input-valor"/>
+                            </div>
+
+                            <div class="form-group form-inline">
+                                <h:outputLabel for="#{ordemServicoMB.dataEntrega}" value="Data de Entrega : " />
+                                <h:inputText class="form-control datepicker" value="#{ordemServicoMB.dataEntrega}" id="dataentrega" required="true" requiredMessage="Este campo é obrigatório!" maxlength="50" />
+                            </div>
+
+                            <div class="form-group">
+                                <h:commandButton value="Salvar" class="btn btn-outline-success" action="#{ordemServicoMB.salvar()}" >
+                                    <f:param name="idoficina" value="#{usu.oficina.id}"/>
+                                </h:commandButton>
+                            </div>
+
+                        </h:form>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <ui:include src="../link/menuadm.xhtml"/>
+
+    </h:body>
+</html>
+
+

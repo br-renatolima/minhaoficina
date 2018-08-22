@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Registrar Tipo</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+
+        <ui:include src="../link/menusuperior.xhtml" />
+
+        <div class="container container-fluid">
+            <h3>Tipos de Equipamento <i class="fa fa-toolbox"></i></h3>
+
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Registrar novo Tipo de Equipamento
+                </div>
+                <div class="card-body">
+                    <h:form class="form-group form-inline">
+                        <h:outputText value="Descrição do Tipo de Equipamento : "/> 
+                        <h:inputText class="form-control" id="nome" value="#{tipoMB.nome}" required="true" requiredMessage="Campo Obrigatório!"/>
+                        <h:commandButton value="Salvar" class="btn btn-outline-success" action="#{tipoMB.salvar()}"/>
+                    </h:form>
+                </div>
+            </div>
+
+            <c:choose>
+                <c:when test="#{tipoMB.mensagem != ''}">
+                    <div class="alert alert-info alert-dismissible fade show">
+                        <h:outputText value="#{tipoMB.mensagem}"/>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:when>
+            </c:choose>
+
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Tipos de Equipamento Registrados
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h:dataTable class="table table-hover table-striped table-bordered table-sm tabela-os" value="#{tipoMB.lista}" var="lista">
+                                <h:column>
+                                    <h:outputText value="#{lista.id}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{lista.nome}"/>
+                                </h:column>                
+                            </h:dataTable>
+                        </div>
+                        <div class="col"></div>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <ui:include src="../link/menuadm.xhtml" />
+    </h:body>
+</html>
+

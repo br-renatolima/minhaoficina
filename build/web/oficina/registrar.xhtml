@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Registrar Oficina</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+
+        <ui:include src="/link/menusuperior.xhtml" />
+
+        <div class="container container-fluid">
+
+            <h3>Administração de Oficinas <i class="fa fa-houzz"></i></h3>
+
+            <c:choose>
+                <c:when test="#{oficinaMB.mensagem != ''}">
+                    <div class="alert alert-secondary alert-dismissible fade show">
+                        <h:outputText value="#{oficinaMB.mensagem}"/>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:when>
+            </c:choose>
+
+            <div class="card bg-light mb-3">
+                <div class="card-header">
+                    Cadastrar Oficina
+                </div>                
+                <div class="card-body">
+                    <h:form>
+
+                        <div class="form-group">
+                            <h:outputLabel for="nomefantasia" value="Nome Fantasia : "/>
+                            <h:inputText class="form-control" id="nomefantasia" value="#{oficinaMB.oficina.nomeFantasia}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                        </div>
+
+
+                        <div class="form-group">
+                            <h:outputLabel for="razaosocial" value="Razão Social : "/>
+                            <h:inputText class="form-control input-group" id="razaosocial" value="#{oficinaMB.oficina.razaoSocial}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                        </div>
+
+
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="cnpj" value="CNPJ : "/>
+                                <h:inputText class="form-control input-group input-cnpj" id="cnpj" value="#{oficinaMB.oficina.cnpj}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+                            <div class="col-4">
+                                <h:outputLabel for="email" value="E-mail : "/>
+                                <h:inputText class="form-control input-group" id="email" value="#{oficinaMB.oficina.email}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+                            <div class="col-4">
+                                <h:outputLabel for="telefone" value="Telefone : "/>
+                                <h:inputText class="form-control input-group" id="telefone" value="#{oficinaMB.oficina.telefone.numero}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="rua" value="Rua : "/>
+                                <h:inputText class="form-control input-group" id="rua" value="#{oficinaMB.oficina.idEndereco.rua}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+
+                            <div class="col-4">
+                                <h:outputLabel for="numero" value="Numero : "/>
+                                <h:inputText class="form-control input-group" id="numero" value="#{oficinaMB.oficina.idEndereco.numero}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+
+                            <div class="col-4">
+                                <h:outputLabel for="complemento" value="Complemento : "/>
+                                <h:inputText class="form-control input-group" id="complemento" value="#{oficinaMB.oficina.idEndereco.complemento}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <div class="col-4">
+                                <h:outputLabel for="cep" value="Cep : "/>
+                                <h:inputText class="form-control input-group input-cep" id="cep" value="#{oficinaMB.oficina.idEndereco.cep}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+
+                            <div class="col-4">
+                                <h:outputLabel for="bairro" value="Bairro : "/>
+                                <h:inputText class="form-control input-group" id="bairro" value="#{oficinaMB.oficina.idEndereco.bairro}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+
+                            <div class="col-4">
+                                <h:outputLabel for="uf" value="Uf : "/>
+                                <h:selectOneMenu class="form-control input-group" id="idUf" value="#{oficinaMB.idUf}" required="true" requiredMessage="Este campo é obrigatório!">
+                                    <f:selectItem itemLabel="Selecione" itemValue="0" />
+                                    <f:selectItems value="#{oficinaMB.listaMapUf}"/>
+                                </h:selectOneMenu>                                
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <h:commandButton class="btn btn-outline-success" value="Salvar" action="#{oficinaMB.salvar()}" />
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-light mb-3">
+            <div class="card-header">
+                Oficinas Cadastradas
+            </div>                
+            <div class="card-body">
+                <h:dataTable class="table table-hover table-striped table-bordered table-sm" value="#{oficinaMB.lista}" var="o">
+
+                    <h:column>
+                        <f:facet name="header"> 
+                            <h:outputText value="Nome Fantasia" /> 
+                        </f:facet> 
+                        <h:outputText id="nomefantasia" value="#{o.nomeFantasia}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> 
+                            <h:outputText value="Razão Social" /> 
+                        </f:facet> 
+                        <h:outputText id="razaosocial" value="#{o.razaoSocial}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> 
+                            <h:outputText value="CNPJ" /> 
+                        </f:facet> 
+                        <h:outputText id="cnpj" value="#{o.cnpj}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> 
+                            <h:outputText value="E-mail de Contato" /> 
+                        </f:facet> 
+                        <h:outputText id="email" value="#{o.email}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> 
+                            <h:outputText value="Endereço" /> 
+                        </f:facet> 
+                        <h:outputText id="rua" value="#{o.idEndereco.rua}"/>, 
+                        <h:outputText id="numero" value="n #{o.idEndereco.numero}"/>, 
+                        <h:outputText id="complemento" value="#{o.idEndereco.complemento}"/>, 
+                        <h:outputText id="bairro" value="#{o.idEndereco.bairro}"/>, 
+                        <h:outputText id="cep" value="#{o.idEndereco.cep}"/>, 
+                        <h:outputText id="uf" value="#{o.idEndereco.idUf.descricao}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> 
+                            <h:outputText value="Ações" /> 
+                        </f:facet> 
+
+                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#incluirAtendente#{o.id}">
+                            <i class="fa fa-id-card"></i> Novo Atendente
+                        </button>
+
+                        <div class="modal fade" id="incluirAtendente#{o.id}" tabindex="-1" role="dialog" aria-labelledby="incluirAtendente#{o.id}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Incluir Atendente - #{o.nomeFantasia}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:form>
+                                            <div class="form-group form-row">
+                                                <div class="col-6">
+                                                    <h:outputLabel id="cpf" value="Insira o CPF do Atendente : "/>
+                                                    <h:inputText class="input-cpf form-control" value="#{oficinaMB.cpf}">
+                                                        <p:ajax event="keyup" update="dadosatendente" listener="#{oficinaMB.getAtendenteByCpf()}"/>
+                                                    </h:inputText>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h:outputLabel id="nome" value="Nome do Atendente"/>
+                                                    <h:inputText class="input-cpf form-control" disabled="true" value="#{oficinaMB.atendente.nome}" id="dadosatendente"/>
+                                                </div>
+                                            </div>                 
+                                            <div class="form-group form-row">
+                                                <h:commandButton class="btn btn-outline-success" value="Incluir" action="#{oficinaMB.incluirAtendente()}">
+                                                    <f:param name="id" value="#{o.id}"/>
+                                                </h:commandButton>
+                                            </div>                 
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--h:outputLink value="incluiratendente.xhtml">
+                            Incluir Atendente
+                            <f:param name="id" value="#{o.id}"/>
+                        </h:outputLink-->
+                    </h:column>
+                </h:dataTable> 
+            </div>
+        </div>
+
+
+
+        <ui:include src="../link/menuadm.xhtml"/>
+
+    </h:body>
+</html>
+

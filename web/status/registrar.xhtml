@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Novo Status</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+
+        <ui:include src="../link/menusuperior.xhtml" />
+
+        <div class="container container-fluid">
+
+            <h3>Status do Sistema <i class="fa fa-newspaper"></i></h3>
+
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Incluir Novo Status
+                </div>                
+                <div class="card-body">
+                    <h:form class="form-group form-inline">
+                        <h:outputLabel value="Descrição do Status : " />
+                        <h:inputText class="form-control" id="descricao" value="#{statusMB.status.descricao}" required="true" requiredMessage="Campo Obrigatório!" />
+                        <h:commandButton class="btn btn-outline-success" value="Salvar" action="#{statusMB.salvar()}" />
+                    </h:form>
+                </div>
+            </div>
+
+            <c:choose>
+                <c:when test="#{statusMB.mensagem != ''}">
+                    <div class="alert alert-secondary alert-dismissible fade show">
+                        <h:outputText value="#{statusMB.mensagem}"/>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:when>
+            </c:choose>
+
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Status Registrados
+                </div>                
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h:dataTable class="table table-hover table-striped table-bordered table-sm" value="#{statusMB.lista}" var="lista">
+                                <h:column>
+                                    <h:outputText value="#{lista.id}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{lista.descricao}"/>
+                                </h:column>                
+                            </h:dataTable>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="../link/menuadm.xhtml" />
+    </h:body>
+</html>
+

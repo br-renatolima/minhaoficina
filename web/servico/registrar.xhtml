@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>NOVO SERVIÇO</title>
+    </h:head>
+    <h:body class="jumbotron jumbotron-fluid">
+
+        <ui:include src="../link/menusuperior.xhtml"/>
+
+        <div class="container container-fluid">
+            <h3>Serviços da Oficina <h:outputText value="#{usu.oficina.nomeFantasia}" /> <i class="fa fa-pencil"></i></h3>
+
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Registrar novo Tipo de Serviço
+                </div>
+                <div class="card-body">
+
+                    <h:form>
+                        
+
+                        <div class="form-group form-row">
+                            <div class="col-6">
+                                <h:outputLabel value="Nome"/>
+                                <h:inputText class="form-control" id="nome" value="#{servicoMB.servico.nome}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                            </div>
+                            <div class="col-6">
+                                <h:outputLabel value="Valor : "/>
+                                <h:inputText class="form-control input-valor" id="valor" value="#{servicoMB.strValor}" required="true" requiredMessage="Este campo é obrigatório!"/>
+                                <h:inputHidden id="oficina" value="#{usu.oficina.id}" />
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group form-row">
+                            <div class="col-6">
+                                <h:outputLabel value="Tipo de Equipamento : "/>
+                                <h:selectOneMenu class="form-control" id="idTipo" value="#{servicoMB.idTipo}" >
+                                    <f:selectItem itemLabel="Selecione um Tipo" itemValue="0" />
+                                    <f:selectItems value="#{servicoMB.listaMapTipo}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-6">
+                                <h:outputLabel value="Complexidade do Serviço : "/>
+                                <h:selectOneMenu class="form-control" id="idComplexidade" value="#{servicoMB.idComplexidade}" >
+                                    <f:selectItems value="#{servicoMB.listaMapComplexidade}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group form-inline">
+                            <h:commandButton class="btn btn-outline-success" action="#{servicoMB.salvar()}" value="Salvar" >
+                                <f:param name="idoficina" value="#{usu.oficina.id}"/>
+                            </h:commandButton>
+                        </div>
+
+                    </h:form>
+                </div>
+
+                <c:choose>
+                    <c:when test="#{servicoMB.mensagem != ''}">
+                        <div class="alert alert-info alert-dismissible fade show">
+                            <h:outputText value="#{servicoMB.mensagem}"/>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </c:when>
+                </c:choose>
+            </div>
+
+            <div class="card text-center bg-light mb-3">
+                <div class="card-header">
+                    Tipos de Serviços Registros
+                </div>
+                <div class="card-body">
+
+                    <h:dataTable class="table table-hover table-striped table-bordered table-sm tabela-os" value="#{servicoMB.lista}" var="s">
+                        <h:column>
+                            <f:facet name="header">ID</f:facet>
+                            <h:outputText value="#{s.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Nome</f:facet>
+                            <h:outputText value="#{s.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Valor</f:facet>
+                            <h:outputText value="#{s.valor}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Tipo de Equipamento</f:facet>
+                            <h:outputText value="#{s.tipo.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Complexidade</f:facet>
+                            <h:outputText value="#{s.idComplexidade.descricao}"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+        </div>
+        <ui:include src="../link/menuadm.xhtml" />
+    </h:body>
+</html>
+

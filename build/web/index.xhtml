@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <link href="./css/bootstrap.css" type="text/css" rel="stylesheet"/>
+    <link href="./css/bootstrap-grid.css" type="text/css" rel="stylesheet" />
+    <link href="./css/bootstrap-reboot.css" rel="stylesheet" type="text/css" />
+    <link href="./css/fontawesome.css" rel="stylesheet" type="text/css" />
+    <link href="./css/custom.css" rel="stylesheet" type="text/css" />
+
+    <script src="./js/jquery-3.3.1.js" />
+    <script src="./js/popper.js" />
+    <script src="./js/bootstrap.js" />
+    <script src="./js/bootstrap.bundle.js" />
+    <script src="./js/fontawesome.js" />
+    <script src="./js/solid.js" />
+    <script src="./js/v4-shims.js" />
+    <script src="./js/all.js" />
+    <script src="./js/custom.js" />
+
+    <h:head>
+        <title>HOME</title>
+    </h:head>
+
+
+    <h:body onload="#{utilMB.inicializarBd()}" class="jumbotron jumbotron-fluid">
+
+        <ul class="nav justify-content-end glass topo">
+            
+            <c:choose>
+                
+                <c:when test="#{usu.nome != null}">
+                    <li class="nav-item">
+                        <h:form class="form-inline">
+                            <h:outputText value="Olá #{usu.nome}"/> - Empresa <h:outputText value="#{usu.oficina.nomeFantasia}"/>
+                            <h:commandButton class="btn btn-outline-secondary btn-sm" action="#{usuarioMB.logout()}" value="Fazer Logout"/>
+                        </h:form>
+                    </li>
+                    <li class="nav-item">
+                        <h:link class="nav-link" value="Painel do Usuário" outcome="usuario/painel.xhtml"><i class="fa fa-tachometer"></i></h:link>
+                    </li>
+                    <li class="nav-item">
+                        <h:outputLink class="nav-link" value="ordemservico/solicitar.xhtml"> Nova Ordem de Serviço <i class="fa fa-book-open"></i> </h:outputLink>
+                    </li>
+                </c:when>
+                
+                <c:otherwise>
+                    <li class="nav-item">
+                        <div class="btn-group">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Clique aqui para fazer Login
+                            </button>
+                            <div class="dropdown-menu">
+
+                                <h:form class="px-4 py-3">
+                                    <div class="form-group">
+                                        <h:outputLabel for="#{usuarioMB.usuario.login}" value="Login: " />
+                                        <h:inputText value="#{usuarioMB.usuario.login}" class="form-control" requiredMessage="Campo Obrigatório!" maxlength="50"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="#{usuarioMB.usuario.senha}" value="Senha: " />
+                                        <h:inputSecret value="#{usuarioMB.usuario.senha}" class="form-control" />
+                                    </div>
+                                    <h:commandButton action="#{usuarioMB.logar()}" class="btn btn-dark" value="Logar"/>
+                                </h:form>
+                                <div class="dropdown-divider"></div>
+                                <h:link class="dropdown-item" value="Cliente novo? Cadastre-se!" outcome="cliente/registrar.xhtml"/>                
+                            </div>
+                        </div>
+                    </li>
+                </c:otherwise>
+                
+            </c:choose>
+            
+        </ul>
+
+
+
+
+
+
+        <div class="container">
+
+            <h:outputLabel class="h1">Minha Oficina</h:outputLabel>
+
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h:form class="form-inline">
+                        <div class="form-group">
+                            <h:outputLabel value="Informe o CPF para consultar seus serviços solicitados : " for="#{clienteMB.CPF}"  />
+                            <h:inputText class="form-control input-cpf" value="#{clienteMB.CPF}" required="true" requiredMessage="Informe um CPF válido!" />
+                            <h:commandButton action="#{clienteMB.listarServicos()}" value="Consultar" class="btn btn-outline-success" />
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+
+
+            <c:choose>
+                <c:when test="#{clienteMB.mensagemErro != ''}">
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <h:outputText value="#{clienteMB.mensagemErro}"/>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:when>
+            </c:choose>
+
+
+
+
+
+            <c:choose>
+                <c:when test="#{clienteMB.cliente.nome != null}">
+                    <div class="d-flex p-2 bd-highlight nome-cliente">
+                        <h3>
+                            <i class="fa fa-cogs"></i>  Lista de Ordens de Serviço de #{clienteMB.cliente.nome}
+                        </h3>
+                    </div>
+                    <input type="text" id="pesquisar" class="form-control input-sm" placeholder="Pesquisar..." aria-controls="tabela-os"/>
+
+                    <div class="table-responsive">
+                        <h:dataTable class="table table-hover table-striped table-bordered table-sm tabela-os" var="os" value="#{clienteMB.listaIndex}">
+
+                            <h:column>
+                                <f:facet name="header" class="thead-dark">
+                                    Id
+                                </f:facet>
+                                <h:outputText value="#{os.ordemServico.id}" />
+                            </h:column>
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Data da Solicitação
+                                </f:facet>
+                                <h:outputText value="#{os.dataSolicitacao}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Data da Entrega
+                                </f:facet>
+                                <h:outputText value="#{os.dataEntrega}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    Equipamento
+                                </f:facet>
+                                <h:outputText value="#{os.equipamento.nome}" /> - 
+                                <h:outputText value="#{os.equipamento.idMarca.nome}" />
+                            </h:column>
+
+
+                            <h:column>
+                                <f:facet name="header" class="thead-dark">
+                                    Status
+                                </f:facet>
+                                <h:outputText value="#{os.ordemServico.status.descricao}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header" class="thead-dark">
+                                    Valor
+                                </f:facet>
+                                R$ <h:outputText value="#{os.ordemServico.valor}" />
+                            </h:column>
+
+
+                            <h:column>
+                                <f:facet name="header" class="thead-dark">
+                                    Oficina
+                                </f:facet>
+                                <div data-toggle="tooltip" data-placement="right" title="Atendente - #{os.ordemServico.atendente.nome}">
+                                    <h:outputText value="#{os.oficina.nomeFantasia}" />
+                                </div>
+                                    
+                            </h:column>
+
+                        </h:dataTable>
+                    </div>
+
+                </c:when>
+            </c:choose>
+
+        </div>
+        
+    </h:body>
+</html>
+
